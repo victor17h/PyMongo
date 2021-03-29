@@ -2,7 +2,7 @@ import pymongo
 import requests
 import logging
 
-# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 client = pymongo.MongoClient()
 db = client.starwars
@@ -33,7 +33,7 @@ def remove_nesting(pilot):
 
 
 remove_nesting(results)
-print(output)
+logging.debug(output)
 
 
 # Select pilots
@@ -45,7 +45,7 @@ def selected_pilots(pilot):
         if 'pilots' in i:
             for j in i['pilots']:
                 pilots.append(j)
-    print(pilots)
+    #print(pilots)
     return remove_nesting
 
 
@@ -62,7 +62,7 @@ def request_pilot(pilot):
     return names
 
 
-print(request_pilot(pilots))
+logging.debug(request_pilot(pilots))
 
 
 # Create list of pilot ids
@@ -71,7 +71,7 @@ for i in names:
     # avoid using for loop by finding the cursor object [0][index]
     id_list.append(db.characters.find({'name': i}, {'_id': 1})[0]['_id'])
 
-print(id_list)
+logging.debug(id_list)
 
 #  Url for ids
 
@@ -83,7 +83,7 @@ def url_id(ids, out):
     return out
 
 
-print(url_id(id_list, output))
+logging.debug(url_id(id_list, output))
 
 # Insert data in MongoDB
 
